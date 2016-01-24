@@ -69,11 +69,11 @@ the GHC.
 
 To test the filter you might use
 
-> pandoc -t json <test.md> | runhaskell moreblocks.hs | pandoc -t beamer -r json
+> pandoc -t json **test.md** | runhaskell moreblocks.hs | pandoc -t beamer -r json
 
 or, if you have a (pre-)compiled version of the filter named "moreblocks", you might use
 
-> pandoc -t beamer --filter moreblocks <test.md>
+> pandoc -t beamer --filter moreblocks **test.md**
  
 instead.
 
@@ -95,3 +95,11 @@ subject "pandoc-moreblocks-filter", and I tried to help you asap!
 
 ## Releases
 
+- Release 1.0 nm (05.06.2015) 
+	Initial Concept. Better to say a proof of concept.
+- Release 1.1 nm (05.06.2015) 
+	First real good release. At least it does the job
+- Release 1.2 nm (24.01.2015) 
+	Added {.notblock} option and updated the README.md, so this might get useful 
+	to others too.
+							
