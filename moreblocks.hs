@@ -1,4 +1,18 @@
 {-# LANGUAGE OverloadedStrings #-}
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- moreblocks.hs (Release 1.2)
+-- =============----------------------------------------------------------------------
+-- (C) in 2015/16 by Norman Markgraf (nmarkgraf (at) hotmail (dot) com
+--
+-- 
+-- History:
+-- --------
+-- Release 1.0 nm (05.06.2015) Initial Concept
+-- Release 1.1 nm (05.06.2015) First real good Release
+-- Release 1.2 nm (24.01.2015) Added {.notblock} option.
+--
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 module Main where
 
 -- moreblocks.hs
@@ -16,18 +30,19 @@ specialHeader (Pandoc meta blocks) = Pandoc meta (elemToBlock $ hierarchicalize 
 elemToBlock :: [Element] -> [Block]
 elemToBlock (Blk b:xs) = b : elemToBlock xs
 elemToBlock (Sec 4 num attr@(_,classes,_) label contents:xs) 
-	| (elem "theorem" classes) = theorem  
-	| (elem "example" classes) = example  
-	| (elem "examples" classes) = examples  
-	| (elem "definition" classes) = definition
-	| (elem "proof" classes) = proof
-	| (elem "lemma" classes) = lemma  
-	| (elem "remark" classes) = remark  	
-	| (elem "remarks" classes) = remarks  	
-	| (elem "exercise" classes) = exercise  	
-	| (elem "solution" classes) = solution  	
-	| (elem "fact" classes) = fact  	
-	| (elem "facts" classes) = facts  	
+	| (elem "theorem" classes)		= theorem  
+	| (elem "example" classes) 		= example  
+	| (elem "examples" classes) 	= examples  
+	| (elem "definition" classes) 	= definition
+	| (elem "proof" classes) 		= proof
+	| (elem "lemma" classes) 		= lemma  
+	| (elem "remark" classes) 		= remark  	
+	| (elem "remarks" classes) 		= remarks  	
+	| (elem "exercise" classes) 	= exercise  	
+	| (elem "solution" classes) 	= solution  	
+	| (elem "fact" classes) 		= fact  	
+	| (elem "facts" classes) 		= facts  	
+	| (elem "endblock" classes) 	= endblock  	
 	where
 		theorem 	= Plain ([mkEnv "Satz"]    		++ label ++ [endLabel]) : elemToBlock contents ++ closeEnv "Satz"   		: elemToBlock xs
 		example 	= Plain ([mkEnv "Beispiel"]    	++ label ++ [endLabel]) : elemToBlock contents ++ closeEnv "Beispiel"    	: elemToBlock xs
@@ -40,7 +55,8 @@ elemToBlock (Sec 4 num attr@(_,classes,_) label contents:xs)
 		exercise 	= Plain ([mkEnv "Uebung"]    	++ label ++ [endLabel]) : elemToBlock contents ++ closeEnv "Uebung"      	: elemToBlock xs
 		solution 	= Plain ([mkEnv "Loesung"]    	++ label ++ [endLabel]) : elemToBlock contents ++ closeEnv "Loesung"      	: elemToBlock xs
 		fact 		= Plain ([mkEnv "Fakt"]   	 	++ label ++ [endLabel]) : elemToBlock contents ++ closeEnv "Fakt"      		: elemToBlock xs
-		facts 		= Plain ([mkEnv "Fakten"]   	 ++ label ++ [endLabel]) : elemToBlock contents ++ closeEnv "Fakten"      		: elemToBlock xs
+		facts 		= Plain ([mkEnv "Fakten"]   	++ label ++ [endLabel]) : elemToBlock contents ++ closeEnv "Fakten"      	: elemToBlock xs
+		endblock	= Plain ([RawInline "latex" $ printf "\\relax"] ) : elemToBlock contents ++ elemToBlock xs
 elemToBlock (Sec lvl num attributes label contents:xs) = Header lvl attributes label : elemToBlock contents ++ elemToBlock xs
 elemToBlock [] = []
 
