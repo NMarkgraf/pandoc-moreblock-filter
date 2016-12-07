@@ -1,5 +1,9 @@
 # pandoc-moreblock-filter
 
+## pandoc 1.17 only!
+
+Sadly the JSON-format of the AST hast changed in 1.17.3, so this filter will only work with OLD pandoc releases. - Sorry! - I'm currently working on this issue. But I can't promiss anything!
+
 ## Why this filter?
 
 When you write a lecture (esp. a math lecture) in Markdown and use pandoc to create a 
