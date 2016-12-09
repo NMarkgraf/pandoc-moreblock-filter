@@ -2,7 +2,11 @@
 
 ## pandoc 1.17 only!
 
-Sadly the JSON-format of the AST hast changed in 1.17.3, so this filter will only work with OLD pandoc releases. - Sorry! - I'm currently working on this issue. But I can't promiss anything!
+Sadly the JSON-format of the AST hast changed in 1.17.3, so this filter will only work with OLD pandoc releases. - Sorry! 
+
+Please use the new **Norman's Pandoc Filter Collection** (short **npfc**) instead of this old stuff!
+
+https://github.com/NMarkgraf/npfc
 
 ## Why this filter?
 
